@@ -13,13 +13,16 @@ a big backlog with this and automation would make a world of difference.
 ```bash
 pip install xlrd
 pip install openpyxl
+pip install python-docx
+pip install pandas
+pip install python-docx
 ```
 
 ## How to use the tool
 1. Make sure to save all useful files in **Output** folder before
    run the program again. The program will delete all previous files
    in **Output** folder.
-1. Put all excel files in **Work_Space** folder.
+1. Put a single excel files in **Work_Space** folder, and name it to **row_data.xlsx**.
 2. Run the command below.
     ```bash
     python main.py
