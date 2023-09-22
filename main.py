@@ -177,7 +177,7 @@ def write_to_docx(TA_name, data, comments):
     for index, each in enumerate(comments, start=1):
         label = f'{index}. '
         paragraph.add_run(label).bold = True
-        paragraph.add_run(str(each) + '\n')
+        paragraph.add_run(str(each) + '\n' + '\n')
 
     for run in paragraph.runs:
         run.font.name = font_name

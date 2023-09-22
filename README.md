@@ -8,6 +8,13 @@ a program that would be able to take the data from Qualtrics
 (as a CSV file) and output the individual TA evaluations. There is
 a big backlog with this and automation would make a world of difference.
 
+## Download the tool
+1. Find a green button on the top right named 'Code', and click it.
+2. Click the option 'HTTPS' and copy the link [https://github.com/Yitong999/TA_Evaluation.git]
+3. Goes to the terminal in your computer and input command below.
+```bash
+git clone https://github.com/Yitong999/TA_Evaluation.git
+```
 
 ## Setup python required library
 ```bash
