@@ -13,6 +13,8 @@ from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches
 
+import math
+
 STANDARD = {
     'Strongly Disagree': 1,
     'Disagree': 2,
@@ -26,8 +28,11 @@ def read_surveys():
     # TODO: iterate through all files in **Work_Space** folder
 
     NUM_Q = 5
-    df = pd.read_excel('Work_Space/row_data.xlsx', header=None)
+    # df = pd.read_excel('Work_Space/row_data.xlsx', header=None)
+    df = pd.read_csv('Work_Space/Mock_data_2.csv') # Change file name
     num_rows = df.shape[0]
+
+    TA_start_idx = 18 # Change it to the starting number of col of the first TA column
 
     evaluation_start_idx = find_evaluation_start_idx(df)
     evaluation_end_idx = evaluation_start_idx + NUM_Q - 1
@@ -40,7 +45,8 @@ def read_surveys():
     for row in range(1, num_rows, 1):
         row_data = df.iloc[row].tolist()
 
-        name = find_TA_name(row_data, evaluation_start_idx)
+        
+        name = find_TA_name(row_data, TA_start_idx, evaluation_start_idx)
         scores = find_scores(row_data, evaluation_start_idx, evaluation_end_idx)
         comment = find_comment(row_data, evaluation_end_idx + 1)
 
@@ -61,8 +67,8 @@ def eval_surveys(surveys):
     return TAs_result
 
 
-def find_TA_name(row_data, max):
-    for i in range(1, max, 1):
+def find_TA_name(row_data, TA_start_idx, max):
+    for i in range(TA_start_idx, max, 1):
         item = row_data[i]
         if isinstance(item, str):
             return item
@@ -81,12 +87,9 @@ def find_scores(row_data, start, end):
 def find_comment(row_data, index):
     return row_data[index]
 
-
 def find_evaluation_start_idx(dataframe):
-    for col_number, col_title in enumerate(dataframe.iloc[0]):
-        if col_title == 'Q1 well prepared':
-            return col_number
-
+    if 'Q1' in dataframe.columns:
+        return dataframe.columns.get_loc('Q1')
     return -1
 
 def write_to_docx(TA_name, data, comments):
